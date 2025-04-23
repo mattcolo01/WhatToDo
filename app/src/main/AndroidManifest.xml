@@ -23,6 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".AddThingActivity"
+            android:exported="false"
+            android:label="Add Thing"
+            android:theme="@style/Theme.WhatToDo" />
+            
+        <activity
+            android:name=".FindThingActivity"
+            android:exported="false"
+            android:label="Find Thing"
+            android:theme="@style/Theme.WhatToDo" />
     </application>
 
 </manifest>
