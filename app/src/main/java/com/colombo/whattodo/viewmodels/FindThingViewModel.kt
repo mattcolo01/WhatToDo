@@ -81,4 +81,10 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
         weatherFilter.value = weatherRequirements
         timeRequiredFilter.value = timeRequired
     }
+
+    fun deleteThing(thing: Thing) {
+        viewModelScope.launch {
+            thingDao.deleteThing(thing)
+        }
+    }
 } 

@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,6 +30,7 @@ import androidx.compose.ui.zIndex
 import com.colombo.whattodo.shared.SelectorGroup
 import com.colombo.whattodo.viewmodels.FindThingViewModel
 import com.colombo.whattodo.viewmodels.ThingMatch
+import com.colombo.whattodo.data.Thing
 
 class FindThingActivity : ComponentActivity() {
     private val viewModel: FindThingViewModel by viewModels()
@@ -61,6 +63,7 @@ fun FindThingScreen(
     var selectedLocation by remember { mutableStateOf(0) }
     var selectedWeather by remember { mutableStateOf(0) }
     var selectedDuration by remember { mutableStateOf(0) }
+    var thingToDelete by remember { mutableStateOf<Thing?>(null) }
 
     val priceRanges = listOf("Free", "Cheap", "Moderate", "Expensive")
     val locations = listOf("Indoor", "Outdoor")
@@ -68,6 +71,30 @@ fun FindThingScreen(
     val durations = listOf("Quick", "Half Day", "Full Day")
 
     val matchingThings by viewModel.matchingThings.collectAsState()
+
+    // Delete confirmation dialog
+    if (thingToDelete != null) {
+        AlertDialog(
+            onDismissRequest = { thingToDelete = null },
+            title = { Text("Delete Activity") },
+            text = { Text("Are you sure you want to delete \"${thingToDelete?.name}\"?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        thingToDelete?.let { viewModel.deleteThing(it) }
+                        thingToDelete = null
+                    }
+                ) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { thingToDelete = null }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 
     // Update filters whenever any selection changes
     LaunchedEffect(selectedPriceRange, selectedLocation, selectedWeather, selectedDuration) {
@@ -162,7 +189,10 @@ fun FindThingScreen(
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
                 items(matchingThings) { match ->
-                    ThingCard(match = match)
+                    ThingCard(
+                        match = match,
+                        onDelete = { thingToDelete = match.thing }
+                    )
                 }
             }
         }
@@ -170,7 +200,10 @@ fun FindThingScreen(
 }
 
 @Composable
-fun ThingCard(match: ThingMatch) {
+fun ThingCard(
+    match: ThingMatch,
+    onDelete: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -184,11 +217,29 @@ fun ThingCard(match: ThingMatch) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = match.thing.name,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = match.thing.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(
+                    onClick = onDelete,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete activity"
+                    )
+                }
+            }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
