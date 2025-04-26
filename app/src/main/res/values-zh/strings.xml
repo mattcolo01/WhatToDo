@@ -32,4 +32,18 @@
     <string name="delete">删除</string>
     <string name="cancel">取消</string>
     <string name="what_would_you_like_to_do">今天你想做什么？</string>
+    <string name="tutorial_title">欢迎使用 WhatToDo！</string>
+    <string name="tutorial_step1_title">添加活动</string>
+    <string name="tutorial_step1_description">当您发现有趣的事情并想在将来做时，将其添加到您的列表中。包括价格范围、天气要求、所需时间和团体规模等详细信息。</string>
+    <string name="tutorial_step2_title">查找活动</string>
+    <string name="tutorial_step2_description">当您有空闲时间并想做某事时，使用查找活动功能。设置您当前的条件（预算、天气、可用时间、团体规模）以获得完美匹配。</string>
+    <string name="tutorial_step3_title">活动详情</string>
+    <string name="tutorial_step3_description">每个活动都有特定要求：\n• 价格范围：免费、便宜、中等或昂贵\n• 天气：雨天、多云或晴天\n• 所需时间：快速、半天或全天\n• 团体规模：一人、两人、小团体或大团体</string>
+    <string name="tutorial_step4_title">完美匹配</string>
+    <string name="tutorial_step4_description">应用程序将向您显示符合您当前条件的活动。不匹配要求的活动将被突出显示，以便您可以决定是否要调整计划。</string>
+    <string name="previous">上一步</string>
+    <string name="next">下一步</string>
+    <string name="finish">完成</string>
+    <string name="close">关闭</string>
+    <string name="help">帮助</string>
 </resources> 

@@ -32,4 +32,18 @@
     <string name="delete">삭제</string>
     <string name="cancel">취소</string>
     <string name="what_would_you_like_to_do">오늘 무엇을 하고 싶으신가요?</string>
+    <string name="tutorial_title">WhatToDo에 오신 것을 환영합니다!</string>
+    <string name="tutorial_step1_title">활동 추가</string>
+    <string name="tutorial_step1_description">언젠가 하고 싶은 흥미로운 것을 발견하면 목록에 추가하세요. 가격 범위, 날씨 요구사항, 소요 시간, 그룹 크기 등의 세부 정보를 포함하세요.</string>
+    <string name="tutorial_step2_title">활동 찾기</string>
+    <string name="tutorial_step2_description">자유 시간이 있고 무언가를 하고 싶을 때 활동 찾기 기능을 사용하세요. 현재 조건(예산, 날씨, 사용 가능한 시간, 그룹 크기)을 설정하여 완벽한 매칭을 얻으세요.</string>
+    <string name="tutorial_step3_title">활동 상세 정보</string>
+    <string name="tutorial_step3_description">각 활동에는 특정 요구사항이 있습니다:\n• 가격 범위: 무료, 저렴, 보통, 비싼\n• 날씨: 비, 흐림, 맑음\n• 소요 시간: 빠름, 반나절, 하루 종일\n• 그룹 크기: 1명, 2명, 소그룹, 대그룹</string>
+    <string name="tutorial_step4_title">완벽한 매칭</string>
+    <string name="tutorial_step4_description">앱은 현재 조건과 일치하는 활동을 보여줍니다. 요구사항이 일치하지 않는 활동은 강조 표시되어 계획을 조정할지 여부를 결정할 수 있습니다.</string>
+    <string name="previous">이전</string>
+    <string name="next">다음</string>
+    <string name="finish">완료</string>
+    <string name="close">닫기</string>
+    <string name="help">도움말</string>
 </resources> 

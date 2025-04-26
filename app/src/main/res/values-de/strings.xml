@@ -32,4 +32,18 @@
     <string name="delete">Löschen</string>
     <string name="cancel">Abbrechen</string>
     <string name="what_would_you_like_to_do">Was möchten Sie heute tun?</string>
+    <string name="tutorial_title">Willkommen bei WhatToDo!</string>
+    <string name="tutorial_step1_title">Aktivitäten Hinzufügen</string>
+    <string name="tutorial_step1_description">Wenn Sie etwas Interessantes finden, das Sie eines Tages machen möchten, fügen Sie es zu Ihrer Liste hinzu. Fügen Sie Details wie Preisklasse, Wetteranforderungen, benötigte Zeit und Gruppengröße hinzu.</string>
+    <string name="tutorial_step2_title">Aktivitäten Finden</string>
+    <string name="tutorial_step2_description">Wenn Sie Freizeit haben und etwas unternehmen möchten, nutzen Sie die Funktion Aktivität Finden. Legen Sie Ihre aktuellen Bedingungen fest (Budget, Wetter, verfügbare Zeit, Gruppengröße), um perfekte Übereinstimmungen zu erhalten.</string>
+    <string name="tutorial_step3_title">Aktivitätsdetails</string>
+    <string name="tutorial_step3_description">Jede Aktivität hat spezifische Anforderungen:\n• Preisklasse: Kostenlos, Günstig, Mittel oder Teuer\n• Wetter: Regnerisch, Bewölkt oder Sonnig\n• Benötigte Zeit: Schnell, Halber Tag oder Ganzer Tag\n• Gruppengröße: Ein, Zwei, Kleine Gruppe oder Große Gruppe</string>
+    <string name="tutorial_step4_title">Perfekte Übereinstimmungen</string>
+    <string name="tutorial_step4_description">Die App zeigt Ihnen Aktivitäten, die Ihren aktuellen Bedingungen entsprechen. Aktivitäten mit nicht übereinstimmenden Anforderungen werden hervorgehoben, damit Sie entscheiden können, ob Sie Ihre Pläne anpassen möchten.</string>
+    <string name="previous">Zurück</string>
+    <string name="next">Weiter</string>
+    <string name="finish">Fertig</string>
+    <string name="close">Schließen</string>
+    <string name="help">Hilfe</string>
 </resources> 

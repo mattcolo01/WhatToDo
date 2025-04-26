@@ -32,4 +32,18 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="what_would_you_like_to_do">What would you like to do today?</string>
+    <string name="tutorial_title">Welcome to WhatToDo!</string>
+    <string name="tutorial_step1_title">Add Activities</string>
+    <string name="tutorial_step1_description">When you come across something interesting you\'d like to do someday, add it to your list. Include details like price range, weather requirements, time needed, and group size.</string>
+    <string name="tutorial_step2_title">Find Activities</string>
+    <string name="tutorial_step2_description">When you have free time and want to do something, use the Find Activity feature. Set your current conditions (budget, weather, time available, group size) to get perfect matches.</string>
+    <string name="tutorial_step3_title">Activity Details</string>
+    <string name="tutorial_step3_description">Each activity has specific requirements:\n• Price Range: Free, Cheap, Moderate, or Expensive\n• Weather: Rainy, Cloudy, or Sunny\n• Time Required: Quick, Half Day, or Full Day\n• Group Size: One, Two, Small Group, or Large Group</string>
+    <string name="tutorial_step4_title">Perfect Matches</string>
+    <string name="tutorial_step4_description">The app will show you activities that match your current conditions. Activities with mismatched requirements will be highlighted, so you can decide if you want to adjust your plans.</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
+    <string name="close">Close</string>
+    <string name="help">Help</string>
 </resources>
