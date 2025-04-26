@@ -35,7 +35,8 @@ fun SelectorGroup(
     options: List<String>,
     selectedIndex: Int,
     selectedIndices: List<Int> = listOf(selectedIndex),
-    onSelectedChange: (Int) -> Unit
+    onSelectedChange: (Int) -> Unit,
+    exclusive: Boolean = true
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
@@ -71,7 +72,7 @@ fun SelectorGroup(
                 modifier = Modifier
                     .fillMaxWidth(indicatorWidth)
                     .padding(1.dp)
-                    .offset(x = if (selectedIndices.size > 1) 0.dp else indicatorOffset / 2.65f)
+                    .offset(x = if (!exclusive) 0.dp else indicatorOffset / 2.65f)
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.secondary)
                     .height(40.dp)

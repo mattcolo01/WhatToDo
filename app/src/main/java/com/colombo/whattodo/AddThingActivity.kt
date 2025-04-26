@@ -112,7 +112,7 @@ fun AddThingScreen(
                 )
             )
 
-            ThingFilters { priceRange, weather, timeRequired ->
+            ThingFilters (true) { priceRange, weather, timeRequired ->
                 selectedPriceRange = priceRange
                 selectedWeather = weather
                 selectedDuration = timeRequired

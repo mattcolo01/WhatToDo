@@ -9,6 +9,7 @@ import com.colombo.whattodo.data.Thing
 
 @Composable
 fun ThingFilters(
+    overrideEverythingAsExclusive: Boolean = false,
     onFiltersChanged: (Thing.PriceRange, Thing.WeatherType, Thing.TimeRequired) -> Unit
 ) {
     var selectedPriceRange by remember { mutableIntStateOf(0) }
@@ -20,19 +21,19 @@ fun ThingFilters(
     val durations = Thing.TimeRequired.entries.toList()
 
     // Calculate inclusive indices for each filter type
-    val priceRangeIndices = if (Thing.priceRangeFilterType == Thing.FilterType.INCLUSIVE) {
+    val priceRangeIndices = if (Thing.priceRangeFilterType == Thing.FilterType.INCLUSIVE && !overrideEverythingAsExclusive) {
         (0..selectedPriceRange).toList()
     } else {
         listOf(selectedPriceRange)
     }
 
-    val weatherIndices = if (Thing.weatherFilterType == Thing.FilterType.INCLUSIVE) {
+    val weatherIndices = if (Thing.weatherFilterType == Thing.FilterType.INCLUSIVE && !overrideEverythingAsExclusive) {
         (0..selectedWeather).toList()
     } else {
         listOf(selectedWeather)
     }
 
-    val durationIndices = if (Thing.timeFilterType == Thing.FilterType.INCLUSIVE) {
+    val durationIndices = if (Thing.timeFilterType == Thing.FilterType.INCLUSIVE && !overrideEverythingAsExclusive) {
         (0..selectedDuration).toList()
     } else {
         listOf(selectedDuration)
@@ -50,7 +51,8 @@ fun ThingFilters(
                 weatherOptions[selectedWeather],
                 durations[selectedDuration]
             )
-        }
+        },
+        exclusive = Thing.priceRangeFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive
     )
 
     SelectorGroup(
@@ -65,7 +67,8 @@ fun ThingFilters(
                 weatherOptions[selectedWeather],
                 durations[selectedDuration]
             )
-        }
+        },
+        exclusive = Thing.weatherFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive
     )
 
     SelectorGroup(
@@ -80,6 +83,7 @@ fun ThingFilters(
                 weatherOptions[selectedWeather],
                 durations[selectedDuration]
             )
-        }
+        },
+        exclusive = Thing.timeFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive
     )
 } 
