@@ -6,14 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -35,10 +37,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -46,26 +46,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.colombo.whattodo.data.Thing
-import com.colombo.whattodo.shared.SelectorGroup
+import com.colombo.whattodo.shared.LoadingSpinner
 import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.FindThingViewModel
 import com.colombo.whattodo.viewmodels.ThingMatch
-import com.colombo.whattodo.R
-import com.colombo.whattodo.ads.AdManager
 import com.colombo.whattodo.ui.theme.WhatToDoTheme
 
 class FindThingActivity : ComponentActivity() {
     private val viewModel: FindThingViewModel by viewModels()
-    private lateinit var adManager: AdManager
+    private val adManager by lazy { (application as WhatToDoApplication).adManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adManager = AdManager(this)
         
         setContent {
             WhatToDoTheme {
@@ -76,7 +74,10 @@ class FindThingActivity : ComponentActivity() {
                     FindThingScreen(
                         viewModel = viewModel,
                         onBackClick = { finish() },
-                        onShowInterstitialAd = { adManager.showInterstitialAd(this) {}  }
+                        onShowInterstitialAd = { adManager.showInterstitialAd(this) {} },
+                        bannerAd = { callback ->
+                            adManager.BannerAd(callback)
+                        }
                     )
                 }
             }
@@ -89,7 +90,8 @@ class FindThingActivity : ComponentActivity() {
 fun FindThingScreen(
     viewModel: FindThingViewModel,
     onBackClick: () -> Unit,
-    onShowInterstitialAd: () -> Unit
+    onShowInterstitialAd: () -> Unit,
+    bannerAd: @Composable (() -> Unit) -> Unit = {}
 ) {
     var thingToDelete by remember { mutableStateOf<Thing?>(null) }
     val matchingThings by viewModel.matchingThings.collectAsState()
@@ -184,11 +186,21 @@ fun FindThingScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
-                items(matchingThings) { match ->
+                items(matchingThings.size) { index ->
+                    val match = matchingThings[index]
                     ThingCard(
                         match = match,
                         onDelete = { thingToDelete = match.thing }
                     )
+                    
+                    // Show banner ad after every fourth item
+                    if (index % 3 == 0) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        ThingCard(
+                            match = null,
+                            ad = bannerAd
+                        ) {}
+                    }
                 }
             }
         }
@@ -197,9 +209,12 @@ fun FindThingScreen(
 
 @Composable
 fun ThingCard(
-    match: ThingMatch,
+    match: ThingMatch?,
+    ad: @Composable (() -> Unit) -> Unit = {},
     onDelete: () -> Unit
 ) {
+    var isAdLoaded by remember { mutableStateOf(false) }
+    
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -213,6 +228,28 @@ fun ThingCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            if (match == null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    if (!isAdLoaded) {
+                        LoadingSpinner(
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        ad {
+                            isAdLoaded = true
+                        }
+                    }
+                }
+                return@Column
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,

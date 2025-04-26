@@ -31,6 +31,7 @@ import com.colombo.whattodo.ui.theme.WhatToDoTheme
 
 class MainActivity : ComponentActivity() {
     private lateinit var sharedPreferences: SharedPreferences
+    private val adManager by lazy { (application as WhatToDoApplication).adManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -31,16 +31,14 @@ import com.colombo.whattodo.data.Thing
 import com.colombo.whattodo.shared.SelectorGroup
 import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.AddThingViewModel
-import com.colombo.whattodo.ads.AdManager
 import com.colombo.whattodo.ui.theme.WhatToDoTheme
 
 class AddThingActivity : ComponentActivity() {
     private val viewModel: AddThingViewModel by viewModels()
-    private lateinit var adManager: AdManager
+    private val adManager by lazy { (application as WhatToDoApplication).adManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adManager = AdManager(this)
         
         setContent {
             WhatToDoTheme {
