@@ -51,6 +51,13 @@ fun ThingFilters(
         listOf(selectedPeopleNumber)
     }
 
+    onFiltersChanged(
+        priceRanges[selectedPriceRange],
+        weatherOptions[selectedWeather],
+        durations[selectedDuration],
+        peopleNumbers[selectedPeopleNumber]
+    )
+
     SelectorGroup(
         title = stringResource(R.string.price_range),
         options = priceRanges.map { it.getDisplayName() }.toList(),
