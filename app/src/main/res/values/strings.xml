@@ -1,3 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WhatToDo</string>
+    <string name="app_name">What To Do</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="add_activity_description">Store new activities and their requirements</string>
+    <string name="find_activity">Find Activity</string>
+    <string name="find_activity_description">Get suggestions based on your preferences</string>
+    <string name="add_new_activity">Add New Activity</string>
+    <string name="back">Back</string>
+    <string name="activity_name">Activity Name / Description</string>
+    <string name="save_activity">Save Activity</string>
+    <string name="price_range">Price Range</string>
+    <string name="weather">Weather</string>
+    <string name="time_required">Time Required</string>
+    <string name="people_number">Number of People</string>
+    <string name="free">Free</string>
+    <string name="cheap">Cheap</string>
+    <string name="moderate">Moderate</string>
+    <string name="expensive">Expensive</string>
+    <string name="sunny">Sunny</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="rainy">Rainy</string>
+    <string name="quick">Quick</string>
+    <string name="medium">Medium</string>
+    <string name="long_">Long</string>
+    <string name="one">One</string>
+    <string name="two">Two</string>
+    <string name="small_group">Small Group</string>
+    <string name="large_group">Large Group</string>
+    <string name="delete_activity">Delete Activity</string>
+    <string name="delete_activity_confirmation">Are you sure you want to delete \"%s\"?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="what_would_you_like_to_do">What would you like to do today?</string>
 </resources>

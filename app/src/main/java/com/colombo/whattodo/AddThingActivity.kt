@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -41,12 +42,13 @@ class AddThingActivity : ComponentActivity() {
                 ) {
                     AddThingScreen(
                         onBackClick = { finish() },
-                        onSaveClick = { name, priceRange, weather, timeRequired ->
+                        onSaveClick = { name, priceRange, weather, timeRequired, peopleNumber ->
                             viewModel.saveThing(
                                 name = name,
                                 priceRange = priceRange,
                                 weatherRequirements = weather,
                                 timeRequired = timeRequired,
+                                peopleNumber = peopleNumber,
                                 onSuccess = { finish() }
                             )
                         }
@@ -61,20 +63,21 @@ class AddThingActivity : ComponentActivity() {
 @Composable
 fun AddThingScreen(
     onBackClick: () -> Unit,
-    onSaveClick: (String, Thing.PriceRange, Thing.WeatherType, Thing.TimeRequired) -> Unit
+    onSaveClick: (String, Thing.PriceRange, Thing.WeatherType, Thing.TimeRequired, Thing.PeopleNumber) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var selectedPriceRange by remember { mutableStateOf(Thing.PriceRange.FREE) }
     var selectedWeather by remember { mutableStateOf(Thing.WeatherType.RAINY) }
     var selectedDuration by remember { mutableStateOf(Thing.TimeRequired.QUICK) }
+    var selectedPeopleNumber by remember { mutableStateOf(Thing.PeopleNumber.ONE) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add New Activity") },
+                title = { Text(stringResource(R.string.add_new_activity)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -104,18 +107,20 @@ fun AddThingScreen(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Activity Name / Description") },
+                label = { Text(stringResource(R.string.activity_name)) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = MaterialTheme.colorScheme.primary,
                     focusedLabelColor = MaterialTheme.colorScheme.primary
-                )
+                ),
+                shape = RoundedCornerShape(12.dp)
             )
 
-            ThingFilters (true) { priceRange, weather, timeRequired ->
+            ThingFilters (MaterialTheme.colorScheme.primary, true) { priceRange, weather, timeRequired, peopleNumber ->
                 selectedPriceRange = priceRange
                 selectedWeather = weather
                 selectedDuration = timeRequired
+                selectedPeopleNumber = peopleNumber
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -126,7 +131,8 @@ fun AddThingScreen(
                         name,
                         selectedPriceRange,
                         selectedWeather,
-                        selectedDuration
+                        selectedDuration,
+                        selectedPeopleNumber
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -135,7 +141,7 @@ fun AddThingScreen(
                 ),
                 enabled = name.isNotBlank()
             ) {
-                Text("Save Activity", modifier = Modifier.padding(vertical = 8.dp))
+                Text(stringResource(R.string.save_activity), modifier = Modifier.padding(vertical = 8.dp))
             }
         }
     }

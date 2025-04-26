@@ -46,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -54,6 +55,7 @@ import com.colombo.whattodo.shared.SelectorGroup
 import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.FindThingViewModel
 import com.colombo.whattodo.viewmodels.ThingMatch
+import com.colombo.whattodo.R
 
 class FindThingActivity : ComponentActivity() {
     private val viewModel: FindThingViewModel by viewModels()
@@ -89,8 +91,8 @@ fun FindThingScreen(
     if (thingToDelete != null) {
         AlertDialog(
             onDismissRequest = { thingToDelete = null },
-            title = { Text("Delete Activity") },
-            text = { Text("Are you sure you want to delete \"${thingToDelete?.name}\"?") },
+            title = { Text(stringResource(R.string.delete_activity)) },
+            text = { Text(stringResource(R.string.delete_activity_confirmation, thingToDelete?.name ?: "")) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -98,12 +100,12 @@ fun FindThingScreen(
                         thingToDelete = null
                     }
                 ) {
-                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { thingToDelete = null }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -112,10 +114,10 @@ fun FindThingScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Find Activity") },
+                title = { Text(stringResource(R.string.find_activity)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -147,17 +149,18 @@ fun FindThingScreen(
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 Text(
-                    text = "What would you like to do today?",
+                    text = stringResource(R.string.what_would_you_like_to_do),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.secondary
                 )
 
-                ThingFilters { priceRange, weather, timeRequired ->
+                ThingFilters (MaterialTheme.colorScheme.secondary) { priceRange, weather, timeRequired, peopleNumber ->
                     viewModel.updateFilters(
                         priceRange = priceRange,
                         weatherRequirements = weather,
-                        timeRequired = timeRequired
+                        timeRequired = timeRequired,
+                        peopleNumber = peopleNumber
                     )
                 }
             }
@@ -219,7 +222,7 @@ fun ThingCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete activity"
+                        contentDescription = stringResource(R.string.delete_activity)
                     )
                 }
             }
@@ -229,15 +232,15 @@ fun ThingCard(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 AttributeChip(
-                    text = match.thing.priceRange.name,
+                    text = match.thing.priceRange.getDisplayName(),
                     isError = match.mismatchedFields.contains("priceRange")
                 )
                 AttributeChip(
-                    text = match.thing.weatherRequirements.name,
+                    text = match.thing.weatherRequirements.getDisplayName(),
                     isError = match.mismatchedFields.contains("weather")
                 )
                 AttributeChip(
-                    text = match.thing.timeRequired.name,
+                    text = match.thing.timeRequired.getDisplayName(),
                     isError = match.mismatchedFields.contains("time")
                 )
             }

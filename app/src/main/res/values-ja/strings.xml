@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">何をする</string>
+    <string name="add_activity">活動を追加</string>
+    <string name="add_activity_description">新しい活動とその要件を保存</string>
+    <string name="find_activity">活動を検索</string>
+    <string name="find_activity_description">好みに基づいた提案を取得</string>
+    <string name="add_new_activity">新しい活動を追加</string>
+    <string name="back">戻る</string>
+    <string name="activity_name">活動名 / 説明</string>
+    <string name="save_activity">活動を保存</string>
+    <string name="price_range">価格帯</string>
+    <string name="weather">天気</string>
+    <string name="time_required">所要時間</string>
+    <string name="people_number">人数</string>
+    <string name="free">無料</string>
+    <string name="cheap">安い</string>
+    <string name="moderate">普通</string>
+    <string name="expensive">高い</string>
+    <string name="sunny">晴れ</string>
+    <string name="cloudy">曇り</string>
+    <string name="rainy">雨</string>
+    <string name="quick">短時間</string>
+    <string name="medium">中程度</string>
+    <string name="long_">長時間</string>
+    <string name="one">一人</string>
+    <string name="two">二人</string>
+    <string name="small_group">小グループ</string>
+    <string name="large_group">大グループ</string>
+    <string name="delete_activity">活動を削除</string>
+    <string name="delete_activity_confirmation">\"%s\"を削除してもよろしいですか？</string>
+    <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
+    <string name="what_would_you_like_to_do">今日は何をしたいですか？</string>
+</resources> 

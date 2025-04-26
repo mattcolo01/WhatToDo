@@ -31,6 +31,7 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
     private val priceRangeFilter = MutableStateFlow<PriceRange?>(null)
     private val weatherFilter = MutableStateFlow<WeatherType?>(null)
     private val timeRequiredFilter = MutableStateFlow<TimeRequired?>(null)
+    private val peopleNumberFilter = MutableStateFlow<Thing.PeopleNumber?>(null)
 
     init {
         viewModelScope.launch {
@@ -39,10 +40,11 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
                 thingDao.getAllThings(),
                 priceRangeFilter,
                 weatherFilter,
-                timeRequiredFilter
-            ) { things, price, weather, time ->
+                timeRequiredFilter,
+                peopleNumberFilter
+            ) { things, price, weather, time, people ->
                 things.map { thing ->
-                    computeScore(thing, price, weather, time)
+                    computeScore(thing, price, weather, time, people)
                 }.sortedByDescending { it.score }
             }.collect {
                 _matchingThings.value = it
@@ -53,18 +55,21 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
     fun updateFilters(
         priceRange: PriceRange?,
         weatherRequirements: WeatherType?,
-        timeRequired: TimeRequired?
+        timeRequired: TimeRequired?,
+        peopleNumber: Thing.PeopleNumber?
     ) {
         priceRangeFilter.value = priceRange
         weatherFilter.value = weatherRequirements
         timeRequiredFilter.value = timeRequired
+        peopleNumberFilter.value = peopleNumber
     }
 
     private fun computeScore(
         thing: Thing,
         price: PriceRange?,
         weather: WeatherType?,
-        time: TimeRequired?
+        time: TimeRequired?,
+        people: Thing.PeopleNumber?
     ): ThingMatch {
         val mismatches = mutableSetOf<String>()
         var score = 4 // Start with max score
@@ -73,7 +78,8 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
         val filters = listOf(
             Triple("priceRange", price, Thing.priceRangeFilterType to thing.priceRange),
             Triple("weather", weather, Thing.weatherFilterType to thing.weatherRequirements),
-            Triple("time", time, Thing.timeFilterType to thing.timeRequired)
+            Triple("time", time, Thing.timeFilterType to thing.timeRequired),
+            Triple("people", people, Thing.peopleNumberFilterType to thing.peopleNumber)
         )
 
         filters.forEach { (fieldName, filterValue, filterTypeAndProperty) ->

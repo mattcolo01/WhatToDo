@@ -16,6 +16,7 @@ class AddThingViewModel(application: Application) : AndroidViewModel(application
         priceRange: Thing.PriceRange,
         weatherRequirements: Thing.WeatherType,
         timeRequired: Thing.TimeRequired,
+        peopleNumber: Thing.PeopleNumber,
         onSuccess: () -> Unit
     ) {
         viewModelScope.launch {
@@ -23,7 +24,8 @@ class AddThingViewModel(application: Application) : AndroidViewModel(application
                 name = name,
                 priceRange = priceRange,
                 weatherRequirements = weatherRequirements,
-                timeRequired = timeRequired
+                timeRequired = timeRequired,
+                peopleNumber = peopleNumber
             )
             thingDao.insertThing(thing)
             onSuccess()

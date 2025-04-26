@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qué Hacer</string>
+    <string name="add_activity">Agregar Actividad</string>
+    <string name="add_activity_description">Almacenar nuevas actividades y sus requisitos</string>
+    <string name="find_activity">Buscar Actividad</string>
+    <string name="find_activity_description">Obtener sugerencias basadas en tus preferencias</string>
+    <string name="add_new_activity">Agregar Nueva Actividad</string>
+    <string name="back">Atrás</string>
+    <string name="activity_name">Nombre de la Actividad / Descripción</string>
+    <string name="save_activity">Guardar Actividad</string>
+    <string name="price_range">Rango de Precio</string>
+    <string name="weather">Clima</string>
+    <string name="time_required">Tiempo Requerido</string>
+    <string name="people_number">Número de Personas</string>
+    <string name="free">Gratis</string>
+    <string name="cheap">Económico</string>
+    <string name="moderate">Moderado</string>
+    <string name="expensive">Caro</string>
+    <string name="sunny">Soleado</string>
+    <string name="cloudy">Nublado</string>
+    <string name="rainy">Lluvioso</string>
+    <string name="quick">Rápido</string>
+    <string name="medium">Medio</string>
+    <string name="long_">Largo</string>
+    <string name="one">Uno</string>
+    <string name="two">Dos</string>
+    <string name="small_group">Grupo Pequeño</string>
+    <string name="large_group">Grupo Grande</string>
+    <string name="delete_activity">Eliminar Actividad</string>
+    <string name="delete_activity_confirmation">¿Estás seguro de que quieres eliminar \"%s\"?</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="what_would_you_like_to_do">¿Qué te gustaría hacer hoy?</string>
+</resources> 

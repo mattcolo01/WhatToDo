@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">O Que Fazer</string>
+    <string name="add_activity">Adicionar Atividade</string>
+    <string name="add_activity_description">Armazenar novas atividades e seus requisitos</string>
+    <string name="find_activity">Encontrar Atividade</string>
+    <string name="find_activity_description">Obter sugestões baseadas em suas preferências</string>
+    <string name="add_new_activity">Adicionar Nova Atividade</string>
+    <string name="back">Voltar</string>
+    <string name="activity_name">Nome da Atividade / Descrição</string>
+    <string name="save_activity">Salvar Atividade</string>
+    <string name="price_range">Faixa de Preço</string>
+    <string name="weather">Clima</string>
+    <string name="time_required">Tempo Necessário</string>
+    <string name="people_number">Número de Pessoas</string>
+    <string name="free">Grátis</string>
+    <string name="cheap">Barato</string>
+    <string name="moderate">Moderado</string>
+    <string name="expensive">Caro</string>
+    <string name="sunny">Ensolarado</string>
+    <string name="cloudy">Nublado</string>
+    <string name="rainy">Chuvoso</string>
+    <string name="quick">Rápido</string>
+    <string name="medium">Médio</string>
+    <string name="long_">Longo</string>
+    <string name="one">Um</string>
+    <string name="two">Dois</string>
+    <string name="small_group">Grupo Pequeno</string>
+    <string name="large_group">Grupo Grande</string>
+    <string name="delete_activity">Excluir Atividade</string>
+    <string name="delete_activity_confirmation">Tem certeza que deseja excluir \"%s\"?</string>
+    <string name="delete">Excluir</string>
+    <string name="cancel">Cancelar</string>
+    <string name="what_would_you_like_to_do">O que você gostaria de fazer hoje?</string>
+</resources> 

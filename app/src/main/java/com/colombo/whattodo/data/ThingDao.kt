@@ -16,12 +16,4 @@ interface ThingDao {
 
     @Delete
     suspend fun deleteThing(thing: Thing)
-
-    @Query("SELECT * FROM things WHERE " +
-           "priceRange = :priceRange AND " +
-           "weatherRequirements = :weatherRequirements")
-    suspend fun findMatchingThings(
-        priceRange: String,
-        weatherRequirements: String
-    ): List<Thing>
 } 

@@ -27,13 +27,13 @@
         <activity
             android:name=".AddThingActivity"
             android:exported="false"
-            android:label="Add Thing"
+            android:label="@string/add_activity"
             android:theme="@style/Theme.WhatToDo" />
             
         <activity
             android:name=".FindThingActivity"
             android:exported="false"
-            android:label="Find Thing"
+            android:label="@string/find_activity"
             android:theme="@style/Theme.WhatToDo" />
     </application>
 

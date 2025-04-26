@@ -36,7 +36,8 @@ fun SelectorGroup(
     selectedIndex: Int,
     selectedIndices: List<Int> = listOf(selectedIndex),
     onSelectedChange: (Int) -> Unit,
-    exclusive: Boolean = true
+    exclusive: Boolean = true,
+    color: Color?
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
@@ -74,7 +75,7 @@ fun SelectorGroup(
                     .padding(1.dp)
                     .offset(x = if (!exclusive) 0.dp else indicatorOffset / 2.65f)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(MaterialTheme.colorScheme.secondary)
+                    .background(color ?: MaterialTheme.colorScheme.secondary)
                     .height(40.dp)
                     .zIndex(0f)
             )

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Что Делать</string>
+    <string name="add_activity">Добавить Мероприятие</string>
+    <string name="add_activity_description">Сохранять новые мероприятия и их требования</string>
+    <string name="find_activity">Найти Мероприятие</string>
+    <string name="find_activity_description">Получать предложения на основе ваших предпочтений</string>
+    <string name="add_new_activity">Добавить Новое Мероприятие</string>
+    <string name="back">Назад</string>
+    <string name="activity_name">Название Мероприятия / Описание</string>
+    <string name="save_activity">Сохранить Мероприятие</string>
+    <string name="price_range">Ценовой Диапазон</string>
+    <string name="weather">Погода</string>
+    <string name="time_required">Необходимое Время</string>
+    <string name="people_number">Количество Людей</string>
+    <string name="free">Бесплатно</string>
+    <string name="cheap">Дешево</string>
+    <string name="moderate">Умеренно</string>
+    <string name="expensive">Дорого</string>
+    <string name="sunny">Солнечно</string>
+    <string name="cloudy">Облачно</string>
+    <string name="rainy">Дождливо</string>
+    <string name="quick">Быстро</string>
+    <string name="medium">Средне</string>
+    <string name="long_">Долго</string>
+    <string name="one">Один</string>
+    <string name="two">Два</string>
+    <string name="small_group">Небольшая Группа</string>
+    <string name="large_group">Большая Группа</string>
+    <string name="delete_activity">Удалить Мероприятие</string>
+    <string name="delete_activity_confirmation">Вы уверены, что хотите удалить \"%s\"?</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="what_would_you_like_to_do">Что бы вы хотели сделать сегодня?</string>
+</resources> 

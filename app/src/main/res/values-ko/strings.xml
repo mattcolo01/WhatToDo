@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">무엇을 할까</string>
+    <string name="add_activity">활동 추가</string>
+    <string name="add_activity_description">새로운 활동과 요구사항 저장</string>
+    <string name="find_activity">활동 찾기</string>
+    <string name="find_activity_description">선호도에 따른 제안 받기</string>
+    <string name="add_new_activity">새로운 활동 추가</string>
+    <string name="back">뒤로</string>
+    <string name="activity_name">활동 이름 / 설명</string>
+    <string name="save_activity">활동 저장</string>
+    <string name="price_range">가격대</string>
+    <string name="weather">날씨</string>
+    <string name="time_required">소요 시간</string>
+    <string name="people_number">인원</string>
+    <string name="free">무료</string>
+    <string name="cheap">저렴</string>
+    <string name="moderate">보통</string>
+    <string name="expensive">비싼</string>
+    <string name="sunny">맑음</string>
+    <string name="cloudy">흐림</string>
+    <string name="rainy">비</string>
+    <string name="quick">짧음</string>
+    <string name="medium">중간</string>
+    <string name="long_">길음</string>
+    <string name="one">한 명</string>
+    <string name="two">두 명</string>
+    <string name="small_group">소규모 단체</string>
+    <string name="large_group">대규모 단체</string>
+    <string name="delete_activity">활동 삭제</string>
+    <string name="delete_activity_confirmation">\"%s\"을(를) 삭제하시겠습니까?</string>
+    <string name="delete">삭제</string>
+    <string name="cancel">취소</string>
+    <string name="what_would_you_like_to_do">오늘 무엇을 하고 싶으신가요?</string>
+</resources> 

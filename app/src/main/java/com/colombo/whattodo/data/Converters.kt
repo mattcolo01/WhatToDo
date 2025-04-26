@@ -20,4 +20,10 @@ class Converters {
 
     @TypeConverter
     fun toTimeRequired(value: String): Thing.TimeRequired = Thing.TimeRequired.valueOf(value)
+
+    @TypeConverter
+    fun fromPeopleNumber(value: Thing.PeopleNumber): String = value.name
+
+    @TypeConverter
+    fun toPeopleNumber(value: String): Thing.PeopleNumber = Thing.PeopleNumber.valueOf(value)
 }

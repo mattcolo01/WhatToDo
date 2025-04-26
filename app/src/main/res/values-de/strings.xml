@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Was Tun</string>
+    <string name="add_activity">Aktivität Hinzufügen</string>
+    <string name="add_activity_description">Neue Aktivitäten und ihre Anforderungen speichern</string>
+    <string name="find_activity">Aktivität Finden</string>
+    <string name="find_activity_description">Vorschläge basierend auf Ihren Präferenzen erhalten</string>
+    <string name="add_new_activity">Neue Aktivität Hinzufügen</string>
+    <string name="back">Zurück</string>
+    <string name="activity_name">Aktivitätsname / Beschreibung</string>
+    <string name="save_activity">Aktivität Speichern</string>
+    <string name="price_range">Preisklasse</string>
+    <string name="weather">Wetter</string>
+    <string name="time_required">Benötigte Zeit</string>
+    <string name="people_number">Anzahl Personen</string>
+    <string name="free">Kostenlos</string>
+    <string name="cheap">Günstig</string>
+    <string name="moderate">Mittel</string>
+    <string name="expensive">Teuer</string>
+    <string name="sunny">Sonnig</string>
+    <string name="cloudy">Bewölkt</string>
+    <string name="rainy">Regnerisch</string>
+    <string name="quick">Schnell</string>
+    <string name="medium">Mittel</string>
+    <string name="long_">Lang</string>
+    <string name="one">Eins</string>
+    <string name="two">Zwei</string>
+    <string name="small_group">Kleine Gruppe</string>
+    <string name="large_group">Große Gruppe</string>
+    <string name="delete_activity">Aktivität Löschen</string>
+    <string name="delete_activity_confirmation">Sind Sie sicher, dass Sie \"%s\" löschen möchten?</string>
+    <string name="delete">Löschen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="what_would_you_like_to_do">Was möchten Sie heute tun?</string>
+</resources> 

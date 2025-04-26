@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">做什么</string>
+    <string name="add_activity">添加活动</string>
+    <string name="add_activity_description">存储新活动及其要求</string>
+    <string name="find_activity">查找活动</string>
+    <string name="find_activity_description">根据您的偏好获取建议</string>
+    <string name="add_new_activity">添加新活动</string>
+    <string name="back">返回</string>
+    <string name="activity_name">活动名称 / 描述</string>
+    <string name="save_activity">保存活动</string>
+    <string name="price_range">价格范围</string>
+    <string name="weather">天气</string>
+    <string name="time_required">所需时间</string>
+    <string name="people_number">人数</string>
+    <string name="free">免费</string>
+    <string name="cheap">便宜</string>
+    <string name="moderate">中等</string>
+    <string name="expensive">昂贵</string>
+    <string name="sunny">晴天</string>
+    <string name="cloudy">多云</string>
+    <string name="rainy">雨天</string>
+    <string name="quick">快速</string>
+    <string name="medium">中等</string>
+    <string name="long_">长时间</string>
+    <string name="one">一人</string>
+    <string name="two">两人</string>
+    <string name="small_group">小团体</string>
+    <string name="large_group">大团体</string>
+    <string name="delete_activity">删除活动</string>
+    <string name="delete_activity_confirmation">确定要删除\"%s\"吗？</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="what_would_you_like_to_do">今天你想做什么？</string>
+</resources> 

@@ -36,8 +36,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.colombo.whattodo.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +75,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.weight(1f))
         
         Text(
-            text = "What To Do",
+            text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
@@ -83,8 +85,8 @@ fun HomeScreen(
         
         // Add Thing Card
         ActionCard(
-            title = "Add Activity",
-            description = "Store new activities and their requirements",
+            title = stringResource(R.string.add_activity),
+            description = stringResource(R.string.add_activity_description),
             icon = Icons.Default.Add,
             onClick = onAddThingClick,
             gradientColors = listOf(
@@ -95,8 +97,8 @@ fun HomeScreen(
 
         // Find Thing Card
         ActionCard(
-            title = "Find Activity",
-            description = "Get suggestions based on your preferences",
+            title = stringResource(R.string.find_activity),
+            description = stringResource(R.string.find_activity_description),
             icon = Icons.Default.Search,
             onClick = onFindThingClick,
             gradientColors = listOf(
