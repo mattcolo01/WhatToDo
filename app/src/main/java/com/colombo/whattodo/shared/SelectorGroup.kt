@@ -1,6 +1,7 @@
 package com.colombo.whattodo.shared
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ fun SelectorGroup(
     title: String,
     options: List<String>,
     selectedIndex: Int,
+    selectedIndices: List<Int> = listOf(selectedIndex),
     onSelectedChange: (Int) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -59,11 +61,17 @@ fun SelectorGroup(
                 label = "selector indicator"
             )
 
+            val indicatorWidth by animateFloatAsState(
+                targetValue = selectedIndices.size * 1f / options.size,
+                label = "selector indicator width"
+            )
+
             // Sliding indicator
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(1f / options.size)
-                    .offset(x = indicatorOffset / 2.65f)
+                    .fillMaxWidth(indicatorWidth)
+                    .padding(1.dp)
+                    .offset(x = if (selectedIndices.size > 1) 0.dp else indicatorOffset / 2.65f)
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.secondary)
                     .height(40.dp)
@@ -89,7 +97,7 @@ fun SelectorGroup(
                         ) {
                             Text(
                                 text = option,
-                                color = if (selectedIndex == index) Color.White else MaterialTheme.colorScheme.onSurface
+                                color = if (selectedIndices.contains(index)) Color.White else MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }

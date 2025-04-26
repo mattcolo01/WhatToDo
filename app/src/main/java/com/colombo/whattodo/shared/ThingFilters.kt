@@ -19,10 +19,30 @@ fun ThingFilters(
     val weatherOptions = Thing.WeatherType.entries.toList()
     val durations = Thing.TimeRequired.entries.toList()
 
+    // Calculate inclusive indices for each filter type
+    val priceRangeIndices = if (Thing.priceRangeFilterType == Thing.FilterType.INCLUSIVE) {
+        (0..selectedPriceRange).toList()
+    } else {
+        listOf(selectedPriceRange)
+    }
+
+    val weatherIndices = if (Thing.weatherFilterType == Thing.FilterType.INCLUSIVE) {
+        (0..selectedWeather).toList()
+    } else {
+        listOf(selectedWeather)
+    }
+
+    val durationIndices = if (Thing.timeFilterType == Thing.FilterType.INCLUSIVE) {
+        (0..selectedDuration).toList()
+    } else {
+        listOf(selectedDuration)
+    }
+
     SelectorGroup(
         title = "Price Range",
         options = priceRanges.map { it.toString() }.toList(),
         selectedIndex = selectedPriceRange,
+        selectedIndices = priceRangeIndices,
         onSelectedChange = { 
             selectedPriceRange = it
             onFiltersChanged(
@@ -37,6 +57,7 @@ fun ThingFilters(
         title = "Weather Requirements",
         options = weatherOptions.map { it.toString() }.toList(),
         selectedIndex = selectedWeather,
+        selectedIndices = weatherIndices,
         onSelectedChange = { 
             selectedWeather = it
             onFiltersChanged(
@@ -51,6 +72,7 @@ fun ThingFilters(
         title = "Time Required",
         options = durations.map { it.toString() }.toList(),
         selectedIndex = selectedDuration,
+        selectedIndices = durationIndices,
         onSelectedChange = { 
             selectedDuration = it
             onFiltersChanged(
