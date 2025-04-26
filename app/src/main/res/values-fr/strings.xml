@@ -21,8 +21,8 @@
     <string name="cloudy">Nuageux</string>
     <string name="rainy">Pluvieux</string>
     <string name="quick">Rapide</string>
-    <string name="medium">Moyen</string>
-    <string name="long_">Long</string>
+    <string name="half_day">Demi-Journée</string>
+    <string name="full_day">Journée Entière</string>
     <string name="one">Un</string>
     <string name="two">Deux</string>
     <string name="small_group">Petit Groupe</string>

@@ -21,8 +21,8 @@
     <string name="cloudy">Cloudy</string>
     <string name="rainy">Rainy</string>
     <string name="quick">Quick</string>
-    <string name="medium">Medium</string>
-    <string name="long_">Long</string>
+    <string name="half_day">Half day</string>
+    <string name="full_day">Full day</string>
     <string name="one">One</string>
     <string name="two">Two</string>
     <string name="small_group">Small Group</string>

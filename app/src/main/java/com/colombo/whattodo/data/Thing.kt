@@ -65,8 +65,8 @@ data class Thing(
         @Composable
         fun getDisplayName(): String = when (this) {
             QUICK -> stringResource(R.string.quick)
-            HALF_DAY -> stringResource(R.string.medium)
-            FULL_DAY -> stringResource(R.string.long_)
+            HALF_DAY -> stringResource(R.string.half_day)
+            FULL_DAY -> stringResource(R.string.full_day)
         }
     }
 

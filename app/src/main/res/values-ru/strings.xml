@@ -21,8 +21,8 @@
     <string name="cloudy">Облачно</string>
     <string name="rainy">Дождливо</string>
     <string name="quick">Быстро</string>
-    <string name="medium">Средне</string>
-    <string name="long_">Долго</string>
+    <string name="half_day">Полдня</string>
+    <string name="full_day">Целый День</string>
     <string name="one">Один</string>
     <string name="two">Два</string>
     <string name="small_group">Небольшая Группа</string>

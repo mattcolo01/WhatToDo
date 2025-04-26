@@ -21,8 +21,8 @@
     <string name="cloudy">Bewölkt</string>
     <string name="rainy">Regnerisch</string>
     <string name="quick">Schnell</string>
-    <string name="medium">Mittel</string>
-    <string name="long_">Lang</string>
+    <string name="half_day">Halber Tag</string>
+    <string name="full_day">Ganzer Tag</string>
     <string name="one">Eins</string>
     <string name="two">Zwei</string>
     <string name="small_group">Kleine Gruppe</string>

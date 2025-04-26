@@ -21,8 +21,8 @@
     <string name="cloudy">多云</string>
     <string name="rainy">雨天</string>
     <string name="quick">快速</string>
-    <string name="medium">中等</string>
-    <string name="long_">长时间</string>
+    <string name="half_day">半天</string>
+    <string name="full_day">全天</string>
     <string name="one">一人</string>
     <string name="two">两人</string>
     <string name="small_group">小团体</string>
