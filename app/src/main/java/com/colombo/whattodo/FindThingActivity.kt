@@ -252,6 +252,10 @@ fun ThingCard(
                     text = match.thing.timeRequired.getDisplayName(),
                     isError = match.mismatchedFields.contains("time")
                 )
+                AttributeChip(
+                    text = match.thing.peopleNumber.getDisplayName(),
+                    isError = match.mismatchedFields.contains("people")
+                )
             }
         }
     }
