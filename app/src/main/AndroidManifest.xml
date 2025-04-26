@@ -35,6 +35,10 @@
             android:exported="false"
             android:label="@string/find_activity"
             android:theme="@style/Theme.WhatToDo" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5545966595390113~1134609926"/>
     </application>
 
 </manifest>

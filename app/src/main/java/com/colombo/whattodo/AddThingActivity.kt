@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -28,12 +29,16 @@ import com.colombo.whattodo.data.Thing
 import com.colombo.whattodo.shared.SelectorGroup
 import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.AddThingViewModel
+import com.colombo.whattodo.ads.AdManager
 
 class AddThingActivity : ComponentActivity() {
     private val viewModel: AddThingViewModel by viewModels()
+    private lateinit var adManager: AdManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adManager = AdManager(this)
+        
         setContent {
             MaterialTheme {
                 Surface(
@@ -49,7 +54,9 @@ class AddThingActivity : ComponentActivity() {
                                 weatherRequirements = weather,
                                 timeRequired = timeRequired,
                                 peopleNumber = peopleNumber,
-                                onSuccess = { finish() }
+                                onSuccess = { 
+                                    adManager.showInterstitialAd(this) { finish() }
+                                }
                             )
                         }
                     )

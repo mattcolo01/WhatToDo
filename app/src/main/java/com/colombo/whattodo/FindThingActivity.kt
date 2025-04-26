@@ -56,12 +56,16 @@ import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.FindThingViewModel
 import com.colombo.whattodo.viewmodels.ThingMatch
 import com.colombo.whattodo.R
+import com.colombo.whattodo.ads.AdManager
 
 class FindThingActivity : ComponentActivity() {
     private val viewModel: FindThingViewModel by viewModels()
+    private lateinit var adManager: AdManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adManager = AdManager(this)
+        
         setContent {
             MaterialTheme {
                 Surface(
@@ -70,7 +74,8 @@ class FindThingActivity : ComponentActivity() {
                 ) {
                     FindThingScreen(
                         viewModel = viewModel,
-                        onBackClick = { finish() }
+                        onBackClick = { finish() },
+                        onShowInterstitialAd = { adManager.showInterstitialAd(this) {}  }
                     )
                 }
             }
@@ -82,7 +87,8 @@ class FindThingActivity : ComponentActivity() {
 @Composable
 fun FindThingScreen(
     viewModel: FindThingViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onShowInterstitialAd: () -> Unit
 ) {
     var thingToDelete by remember { mutableStateOf<Thing?>(null) }
     val matchingThings by viewModel.matchingThings.collectAsState()
@@ -96,8 +102,11 @@ fun FindThingScreen(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        thingToDelete?.let { viewModel.deleteThing(it) }
-                        thingToDelete = null
+                        thingToDelete?.let { 
+                            viewModel.deleteThing(it)
+                            thingToDelete = null
+                            onShowInterstitialAd()
+                        }
                     }
                 ) {
                     Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error)
