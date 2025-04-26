@@ -32,6 +32,7 @@ import com.colombo.whattodo.shared.SelectorGroup
 import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.AddThingViewModel
 import com.colombo.whattodo.ads.AdManager
+import com.colombo.whattodo.ui.theme.WhatToDoTheme
 
 class AddThingActivity : ComponentActivity() {
     private val viewModel: AddThingViewModel by viewModels()
@@ -42,7 +43,7 @@ class AddThingActivity : ComponentActivity() {
         adManager = AdManager(this)
         
         setContent {
-            MaterialTheme {
+            WhatToDoTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

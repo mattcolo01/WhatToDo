@@ -40,12 +40,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.colombo.whattodo.R
+import com.colombo.whattodo.ui.theme.WhatToDoTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            WhatToDoTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -159,21 +160,21 @@ fun ActionCard(
                     imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier.size(32.dp),
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
                 
                 Column {
                     Text(
                         text = title,
                         style = MaterialTheme.typography.titleLarge,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = description,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.White.copy(alpha = 0.8f)
+                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
                     )
                 }
             }

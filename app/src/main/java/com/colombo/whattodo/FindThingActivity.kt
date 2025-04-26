@@ -57,6 +57,7 @@ import com.colombo.whattodo.viewmodels.FindThingViewModel
 import com.colombo.whattodo.viewmodels.ThingMatch
 import com.colombo.whattodo.R
 import com.colombo.whattodo.ads.AdManager
+import com.colombo.whattodo.ui.theme.WhatToDoTheme
 
 class FindThingActivity : ComponentActivity() {
     private val viewModel: FindThingViewModel by viewModels()
@@ -67,7 +68,7 @@ class FindThingActivity : ComponentActivity() {
         adManager = AdManager(this)
         
         setContent {
-            MaterialTheme {
+            WhatToDoTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -131,8 +132,8 @@ fun FindThingScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 modifier = Modifier.background(
                     Brush.horizontalGradient(
