@@ -13,18 +13,15 @@ class AddThingViewModel(application: Application) : AndroidViewModel(application
 
     fun saveThing(
         name: String,
-        priceRange: String,
-        isOutdoor: Boolean,
-        weatherRequirements: String,
-        timeRequired: String,
+        priceRange: Thing.PriceRange,
+        weatherRequirements: Thing.WeatherType,
+        timeRequired: Thing.TimeRequired,
         onSuccess: () -> Unit
     ) {
         viewModelScope.launch {
             val thing = Thing(
                 name = name,
-                description = "", // For now we'll use the same field for name/description
                 priceRange = priceRange,
-                isOutdoor = isOutdoor,
                 weatherRequirements = weatherRequirements,
                 timeRequired = timeRequired
             )

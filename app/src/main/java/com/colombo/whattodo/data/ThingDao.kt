@@ -19,11 +19,9 @@ interface ThingDao {
 
     @Query("SELECT * FROM things WHERE " +
            "priceRange = :priceRange AND " +
-           "isOutdoor = :isOutdoor AND " +
            "weatherRequirements = :weatherRequirements")
     suspend fun findMatchingThings(
         priceRange: String,
-        isOutdoor: Boolean,
         weatherRequirements: String
     ): List<Thing>
 } 

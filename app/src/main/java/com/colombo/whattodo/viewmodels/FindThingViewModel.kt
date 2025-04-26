@@ -5,6 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.colombo.whattodo.data.AppDatabase
 import com.colombo.whattodo.data.Thing
+import com.colombo.whattodo.data.Thing.FilterType
+import com.colombo.whattodo.data.Thing.PriceRange
+import com.colombo.whattodo.data.Thing.WeatherType
+import com.colombo.whattodo.data.Thing.TimeRequired
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -24,10 +28,9 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
     val matchingThings: StateFlow<List<ThingMatch>> = _matchingThings
 
     // Filters as StateFlows to trigger recomputation when they change
-    private val priceRangeFilter = MutableStateFlow("")
-    private val isOutdoorFilter = MutableStateFlow(false)
-    private val weatherFilter = MutableStateFlow("")
-    private val timeRequiredFilter = MutableStateFlow("")
+    private val priceRangeFilter = MutableStateFlow<PriceRange?>(null)
+    private val weatherFilter = MutableStateFlow<WeatherType?>(null)
+    private val timeRequiredFilter = MutableStateFlow<TimeRequired?>(null)
 
     init {
         viewModelScope.launch {
@@ -35,34 +38,11 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
             combine(
                 thingDao.getAllThings(),
                 priceRangeFilter,
-                isOutdoorFilter,
                 weatherFilter,
                 timeRequiredFilter
-            ) { things, price, outdoor, weather, time ->
+            ) { things, price, weather, time ->
                 things.map { thing ->
-                    val mismatches = mutableSetOf<String>()
-                    var score = 4 // Start with max score
-
-                    // Check each criterion
-                    if (price.isNotEmpty() && thing.priceRange != price) {
-                        mismatches.add("priceRange")
-                        score--
-                    }
-                    if (thing.isOutdoor != outdoor) {
-                        mismatches.add("location")
-                        score--
-                    }
-                    if (weather.isNotEmpty() && thing.weatherRequirements != weather && 
-                        thing.weatherRequirements != "Any") {
-                        mismatches.add("weather")
-                        score--
-                    }
-                    if (time.isNotEmpty() && thing.timeRequired != time) {
-                        mismatches.add("time")
-                        score--
-                    }
-
-                    ThingMatch(thing, score, mismatches)
+                    computeScore(thing, price, weather, time)
                 }.sortedByDescending { it.score }
             }.collect {
                 _matchingThings.value = it
@@ -71,15 +51,46 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun updateFilters(
-        priceRange: String,
-        isOutdoor: Boolean,
-        weatherRequirements: String,
-        timeRequired: String
+        priceRange: PriceRange?,
+        weatherRequirements: WeatherType?,
+        timeRequired: TimeRequired?
     ) {
         priceRangeFilter.value = priceRange
-        isOutdoorFilter.value = isOutdoor
         weatherFilter.value = weatherRequirements
         timeRequiredFilter.value = timeRequired
+    }
+
+    private fun computeScore(
+        thing: Thing,
+        price: PriceRange?,
+        weather: WeatherType?,
+        time: TimeRequired?
+    ): ThingMatch {
+        val mismatches = mutableSetOf<String>()
+        var score = 4 // Start with max score
+
+        // Check each criterion based on filter type
+        val filters = listOf(
+            Triple("priceRange", price, Thing.priceRangeFilterType to thing.priceRange),
+            Triple("weather", weather, Thing.weatherFilterType to thing.weatherRequirements),
+            Triple("time", time, Thing.timeFilterType to thing.timeRequired)
+        )
+
+        filters.forEach { (fieldName, filterValue, filterTypeAndProperty) ->
+            val (filterType, property) = filterTypeAndProperty
+            if (filterValue != null) {
+                val match = when (filterType) {
+                    FilterType.INCLUSIVE -> property.ordinal <= filterValue.ordinal
+                    FilterType.EXCLUSIVE -> property == filterValue
+                }
+                if (!match) {
+                    mismatches.add(fieldName)
+                    score--
+                }
+            }
+        }
+
+        return ThingMatch(thing, score, mismatches)
     }
 
     fun deleteThing(thing: Thing) {

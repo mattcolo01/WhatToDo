@@ -4,33 +4,56 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
+import com.colombo.whattodo.data.Thing
 import com.colombo.whattodo.shared.SelectorGroup
+import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.FindThingViewModel
 import com.colombo.whattodo.viewmodels.ThingMatch
-import com.colombo.whattodo.data.Thing
 
 class FindThingActivity : ComponentActivity() {
     private val viewModel: FindThingViewModel by viewModels()
@@ -59,17 +82,7 @@ fun FindThingScreen(
     viewModel: FindThingViewModel,
     onBackClick: () -> Unit
 ) {
-    var selectedPriceRange by remember { mutableStateOf(0) }
-    var selectedLocation by remember { mutableStateOf(0) }
-    var selectedWeather by remember { mutableStateOf(0) }
-    var selectedDuration by remember { mutableStateOf(0) }
     var thingToDelete by remember { mutableStateOf<Thing?>(null) }
-
-    val priceRanges = listOf("Free", "Cheap", "Moderate", "Expensive")
-    val locations = listOf("Indoor", "Outdoor")
-    val weatherOptions = listOf("Any", "Sunny", "Cloudy", "Rainy")
-    val durations = listOf("Quick", "Half Day", "Full Day")
-
     val matchingThings by viewModel.matchingThings.collectAsState()
 
     // Delete confirmation dialog
@@ -96,23 +109,13 @@ fun FindThingScreen(
         )
     }
 
-    // Update filters whenever any selection changes
-    LaunchedEffect(selectedPriceRange, selectedLocation, selectedWeather, selectedDuration) {
-        viewModel.updateFilters(
-            priceRange = priceRanges[selectedPriceRange],
-            isOutdoor = locations[selectedLocation] == "Outdoor",
-            weatherRequirements = weatherOptions[selectedWeather],
-            timeRequired = durations[selectedDuration]
-        )
-    }
-
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Find Activity") },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -150,33 +153,13 @@ fun FindThingScreen(
                     color = MaterialTheme.colorScheme.secondary
                 )
 
-                SelectorGroup(
-                    title = "Price Range",
-                    options = priceRanges,
-                    selectedIndex = selectedPriceRange,
-                    onSelectedChange = { selectedPriceRange = it }
-                )
-
-                SelectorGroup(
-                    title = "Location",
-                    options = locations,
-                    selectedIndex = selectedLocation,
-                    onSelectedChange = { selectedLocation = it }
-                )
-
-                SelectorGroup(
-                    title = "Weather Requirements",
-                    options = weatherOptions,
-                    selectedIndex = selectedWeather,
-                    onSelectedChange = { selectedWeather = it }
-                )
-
-                SelectorGroup(
-                    title = "Time Required",
-                    options = durations,
-                    selectedIndex = selectedDuration,
-                    onSelectedChange = { selectedDuration = it }
-                )
+                ThingFilters { priceRange, weather, timeRequired ->
+                    viewModel.updateFilters(
+                        priceRange = priceRange,
+                        weatherRequirements = weather,
+                        timeRequired = timeRequired
+                    )
+                }
             }
 
             // Results section
@@ -246,19 +229,15 @@ fun ThingCard(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 AttributeChip(
-                    text = match.thing.priceRange,
+                    text = match.thing.priceRange.name,
                     isError = match.mismatchedFields.contains("priceRange")
                 )
                 AttributeChip(
-                    text = if (match.thing.isOutdoor) "Outdoor" else "Indoor",
-                    isError = match.mismatchedFields.contains("location")
-                )
-                AttributeChip(
-                    text = match.thing.weatherRequirements,
+                    text = match.thing.weatherRequirements.name,
                     isError = match.mismatchedFields.contains("weather")
                 )
                 AttributeChip(
-                    text = match.thing.timeRequired,
+                    text = match.thing.timeRequired.name,
                     isError = match.mismatchedFields.contains("time")
                 )
             }

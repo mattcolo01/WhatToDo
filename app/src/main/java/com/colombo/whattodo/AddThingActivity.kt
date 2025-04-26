@@ -11,7 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +23,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.colombo.whattodo.data.Thing
 import com.colombo.whattodo.shared.SelectorGroup
+import com.colombo.whattodo.shared.ThingFilters
 import com.colombo.whattodo.viewmodels.AddThingViewModel
 
 class AddThingActivity : ComponentActivity() {
@@ -39,11 +41,10 @@ class AddThingActivity : ComponentActivity() {
                 ) {
                     AddThingScreen(
                         onBackClick = { finish() },
-                        onSaveClick = { name, priceRange, isOutdoor, weather, timeRequired ->
+                        onSaveClick = { name, priceRange, weather, timeRequired ->
                             viewModel.saveThing(
                                 name = name,
                                 priceRange = priceRange,
-                                isOutdoor = isOutdoor,
                                 weatherRequirements = weather,
                                 timeRequired = timeRequired,
                                 onSuccess = { finish() }
@@ -60,18 +61,12 @@ class AddThingActivity : ComponentActivity() {
 @Composable
 fun AddThingScreen(
     onBackClick: () -> Unit,
-    onSaveClick: (String, String, Boolean, String, String) -> Unit
+    onSaveClick: (String, Thing.PriceRange, Thing.WeatherType, Thing.TimeRequired) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
-    var selectedPriceRange by remember { mutableStateOf(0) }
-    var selectedLocation by remember { mutableStateOf(0) }
-    var selectedWeather by remember { mutableStateOf(0) }
-    var selectedDuration by remember { mutableStateOf(0) }
-
-    val priceRanges = listOf("Free", "Cheap", "Moderate", "Expensive")
-    val locations = listOf("Indoor", "Outdoor")
-    val weatherOptions = listOf("Any", "Sunny", "Cloudy", "Rainy")
-    val durations = listOf("Quick", "Half Day", "Full Day")
+    var selectedPriceRange by remember { mutableStateOf(Thing.PriceRange.FREE) }
+    var selectedWeather by remember { mutableStateOf(Thing.WeatherType.RAINY) }
+    var selectedDuration by remember { mutableStateOf(Thing.TimeRequired.QUICK) }
 
     Scaffold(
         topBar = {
@@ -79,7 +74,7 @@ fun AddThingScreen(
                 title = { Text("Add New Activity") },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -117,33 +112,11 @@ fun AddThingScreen(
                 )
             )
 
-            SelectorGroup(
-                title = "Price Range",
-                options = priceRanges,
-                selectedIndex = selectedPriceRange,
-                onSelectedChange = { selectedPriceRange = it }
-            )
-
-            SelectorGroup(
-                title = "Location",
-                options = locations,
-                selectedIndex = selectedLocation,
-                onSelectedChange = { selectedLocation = it }
-            )
-
-            SelectorGroup(
-                title = "Weather Requirements",
-                options = weatherOptions,
-                selectedIndex = selectedWeather,
-                onSelectedChange = { selectedWeather = it }
-            )
-
-            SelectorGroup(
-                title = "Time Required",
-                options = durations,
-                selectedIndex = selectedDuration,
-                onSelectedChange = { selectedDuration = it }
-            )
+            ThingFilters { priceRange, weather, timeRequired ->
+                selectedPriceRange = priceRange
+                selectedWeather = weather
+                selectedDuration = timeRequired
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -151,10 +124,9 @@ fun AddThingScreen(
                 onClick = {
                     onSaveClick(
                         name,
-                        priceRanges[selectedPriceRange],
-                        locations[selectedLocation] == "Outdoor",
-                        weatherOptions[selectedWeather],
-                        durations[selectedDuration]
+                        selectedPriceRange,
+                        selectedWeather,
+                        selectedDuration
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
