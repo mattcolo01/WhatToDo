@@ -78,6 +78,7 @@ fun AddThingScreen(
     var selectedWeather by remember { mutableStateOf(Thing.WeatherType.RAINY) }
     var selectedDuration by remember { mutableStateOf(Thing.TimeRequired.QUICK) }
     var selectedPeopleNumber by remember { mutableStateOf(Thing.PeopleNumber.ONE) }
+    var disableFilters by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -131,7 +132,33 @@ fun AddThingScreen(
                 shape = RoundedCornerShape(12.dp)
             )
 
-            ThingFilters (MaterialTheme.colorScheme.primary, true) { priceRange, weather, timeRequired, peopleNumber ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(
+                    checked = disableFilters,
+                    onCheckedChange = { checked ->
+                        disableFilters = checked
+                        if (checked) {
+                            selectedPriceRange = Thing.PriceRange.FREE
+                            selectedWeather = Thing.WeatherType.RAINY
+                            selectedDuration = Thing.TimeRequired.QUICK
+                            selectedPeopleNumber = Thing.PeopleNumber.ONE
+                        }
+                    }
+                )
+                Text("Always on top", modifier = Modifier.padding(start = 8.dp))
+            }
+
+            ThingFilters (
+                MaterialTheme.colorScheme.primary,
+                disabled = disableFilters,
+                values = Thing(
+                    name = name,
+                    priceRange = selectedPriceRange,
+                    weatherRequirements = selectedWeather,
+                    timeRequired = selectedDuration,
+                    peopleNumber = selectedPeopleNumber
+                )
+            ) { priceRange, weather, timeRequired, peopleNumber ->
                 selectedPriceRange = priceRange
                 selectedWeather = weather
                 selectedDuration = timeRequired

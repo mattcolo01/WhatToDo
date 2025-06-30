@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -37,9 +38,12 @@ fun SelectorGroup(
     selectedIndices: List<Int> = listOf(selectedIndex),
     onSelectedChange: (Int) -> Unit,
     exclusive: Boolean = true,
-    color: Color?
+    color: Color?,
+    disabled: Boolean = false,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.then(
+        if (disabled) Modifier.alpha(0.5f) else Modifier
+    )) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleMedium,
@@ -94,7 +98,8 @@ fun SelectorGroup(
                             .zIndex(2f)
                     ) {
                         TextButton(
-                            onClick = { onSelectedChange(index) },
+                            onClick = { if (!disabled) onSelectedChange(index) },
+                            enabled = !disabled,
                             modifier = Modifier.fillMaxSize()
                         ) {
                             Text(

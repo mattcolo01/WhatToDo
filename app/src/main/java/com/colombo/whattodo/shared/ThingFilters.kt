@@ -14,12 +14,21 @@ import com.colombo.whattodo.R
 fun ThingFilters(
     color: Color,
     overrideEverythingAsExclusive: Boolean = false,
-    onFiltersChanged: (Thing.PriceRange, Thing.WeatherType, Thing.TimeRequired, Thing.PeopleNumber) -> Unit
+    disabled: Boolean = false,
+    values: Thing? = null,
+    onFiltersChanged: (Thing.PriceRange, Thing.WeatherType, Thing.TimeRequired, Thing.PeopleNumber) -> Unit,
 ) {
-    var selectedPriceRange by remember { mutableIntStateOf(0) }
-    var selectedWeather by remember { mutableIntStateOf(0) }
-    var selectedDuration by remember { mutableIntStateOf(0) }
-    var selectedPeopleNumber by remember { mutableIntStateOf(0) }
+    var selectedPriceRange by remember { mutableIntStateOf(values?.priceRange?.value ?: 0) }
+    var selectedWeather by remember { mutableIntStateOf(values?.weatherRequirements?.value ?: 0) }
+    var selectedDuration by remember { mutableIntStateOf(values?.timeRequired?.value ?: 0) }
+    var selectedPeopleNumber by remember { mutableIntStateOf(values?.peopleNumber?.value ?: 0) }
+
+    if (values != null) {
+        selectedPriceRange = values.priceRange.value
+        selectedWeather = values.weatherRequirements.value
+        selectedDuration = values.timeRequired.value
+        selectedPeopleNumber = values.peopleNumber.value
+    }
 
     val priceRanges = Thing.PriceRange.entries.toList()
     val weatherOptions = Thing.WeatherType.entries.toList()
@@ -73,7 +82,8 @@ fun ThingFilters(
             )
         },
         exclusive = Thing.priceRangeFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive,
-        color = color
+        color = color,
+        disabled = disabled
     )
 
     SelectorGroup(
@@ -91,7 +101,8 @@ fun ThingFilters(
             )
         },
         exclusive = Thing.weatherFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive,
-        color = color
+        color = color,
+        disabled = disabled
     )
 
     SelectorGroup(
@@ -109,7 +120,8 @@ fun ThingFilters(
             )
         },
         exclusive = Thing.timeFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive,
-        color = color
+        color = color,
+        disabled = disabled
     )
 
     SelectorGroup(
@@ -127,6 +139,7 @@ fun ThingFilters(
             )
         },
         exclusive = Thing.peopleNumberFilterType == Thing.FilterType.EXCLUSIVE || overrideEverythingAsExclusive,
-        color = color
+        color = color,
+        disabled = disabled
     )
 }

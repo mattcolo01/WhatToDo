@@ -28,10 +28,10 @@ class FindThingViewModel(application: Application) : AndroidViewModel(applicatio
     val matchingThings: StateFlow<List<ThingMatch>> = _matchingThings
 
     // Filters as StateFlows to trigger recomputation when they change
-    private val priceRangeFilter = MutableStateFlow<PriceRange?>(null)
-    private val weatherFilter = MutableStateFlow<WeatherType?>(null)
-    private val timeRequiredFilter = MutableStateFlow<TimeRequired?>(null)
-    private val peopleNumberFilter = MutableStateFlow<Thing.PeopleNumber?>(null)
+    val priceRangeFilter = MutableStateFlow<PriceRange?>(null)
+    val weatherFilter = MutableStateFlow<WeatherType?>(null)
+    val timeRequiredFilter = MutableStateFlow<TimeRequired?>(null)
+    val peopleNumberFilter = MutableStateFlow<Thing.PeopleNumber?>(null)
 
     init {
         viewModelScope.launch {
