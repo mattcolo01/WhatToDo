@@ -4,7 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +27,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,6 +50,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -95,6 +102,8 @@ fun FindThingScreen(
 ) {
     var thingToDelete by remember { mutableStateOf<Thing?>(null) }
     val matchingThings by viewModel.matchingThings.collectAsState()
+    var filtersExpanded by remember { mutableStateOf(true) }
+    val arrowRotation by animateFloatAsState(if (filtersExpanded) 180f else 0f, label = "arrowRotation")
 
     // Delete confirmation dialog
     if (thingToDelete != null) {
@@ -166,13 +175,41 @@ fun FindThingScreen(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.secondary
                 )
-
-                ThingFilters (MaterialTheme.colorScheme.secondary) { priceRange, weather, timeRequired, peopleNumber ->
-                    viewModel.updateFilters(
-                        priceRange = priceRange,
-                        weatherRequirements = weather,
-                        timeRequired = timeRequired,
-                        peopleNumber = peopleNumber
+                if (filtersExpanded) {
+                    ThingFilters(MaterialTheme.colorScheme.secondary) { priceRange, weather, timeRequired, peopleNumber ->
+                        viewModel.updateFilters(
+                            priceRange = priceRange,
+                            weatherRequirements = weather,
+                            timeRequired = timeRequired,
+                            peopleNumber = peopleNumber
+                        )
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp)
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .let { Modifier.clickable { filtersExpanded = !filtersExpanded } },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    androidx.compose.material3.Divider(
+                        modifier = Modifier.weight(1f),
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowDown,
+                        contentDescription = if (filtersExpanded) stringResource(R.string.collapse) else stringResource(R.string.expand),
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .rotate(arrowRotation),
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
+                    androidx.compose.material3.Divider(
+                        modifier = Modifier.weight(1f),
+                        color = MaterialTheme.colorScheme.outline
                     )
                 }
             }

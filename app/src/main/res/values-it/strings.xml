@@ -46,4 +46,6 @@
     <string name="finish">Fine</string>
     <string name="close">Chiudi</string>
     <string name="help">Aiuto</string>
+    <string name="collapse">collapse</string>
+    <string name="expand">expand</string>
 </resources> 

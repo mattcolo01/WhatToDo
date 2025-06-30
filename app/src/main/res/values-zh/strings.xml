@@ -46,4 +46,6 @@
     <string name="finish">完成</string>
     <string name="close">关闭</string>
     <string name="help">帮助</string>
+    <string name="collapse">collapse</string>
+    <string name="expand">expand</string>
 </resources> 
